@@ -65,5 +65,5 @@ var incidents = {
   Wayne: "1",
   Westmoreland: "0",
   Wyoming: "0",
-  "York ": "0"
+  York: "0"
 };
