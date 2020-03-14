@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <title>Pennsylvania Coronavirus Dashboard</title>
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cosmo/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-qdQEsAI45WFCO5QwXBelBe1rR9Nwiss4rGEqiszC+9olH1ScrLrMQr1KmDR964uZ"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link
+      rel="stylesheet"
+      href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"
+    />
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
+      rel="stylesheet"
+    />
+    <link href="main.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <div class="container">
+      <h1 class="mt-5" align="center">Pennsylvania Coronavirus Tracker</h1>
+      <!-- <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p> -->
+      <br />
+      <div id="map"></div>
+      <br />
+      <div><canvas id="myChart"></canvas></div>
+    </div>
+    <script>
+      var ctx = document.getElementById("myChart");
+      var chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "March 5",
+            "March 6",
+            "March 7",
+            "March 8",
+            "March 9",
+            "March 10",
+            "March 11",
+            "March 12",
+            "March 13",
+            "March 14",
+            "March 15",
+            "March 16",
+            "March 17",
+            "March 18"
+          ],
+          datasets: [
+            {
+              label: "COVID-19 Cases",
+              data: [0, 2, 4, 6, 10, 12, 16, 22, 41, 47],
+              fill: false,
+              borderColor: "rgb(255, 99, 132)",
+              lineTension: 0.1
+            },
+            {
+              label: "Projection Based on Latest Growth Rate",
+              data: [, , , , , , , , , 47, 69, 101, 147, 215],
+              fill: false,
+              hidden: true,
+              borderColor: "rgb(54, 162, 235)",
+              lineTension: 0.1
+            }
+          ]
+        },
+        options: {}
+      });
+    </script>
+    <br />
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm">
+        <center>
+          <button
+            id="projectionButton"
+            class="btn btn-outline-primary"
+            onclick="chart.data.datasets[1].hidden = false; chart.update(); var projectionDel = document.getElementById('projectionButton');
+			    projectionDel.parentNode.removeChild(projectionDel); "
+          >
+            Show Projections Based on Latest Growth Rate
+          </button>
+        </center>
+      </div>
+      <div class="col-sm"></div>
+    </div>
+    <br /><br />
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <span class="text-muted"
+          >Site by <a href="https://bennettwarner.com">Bennett Warner</a>
+          &nbsp;&nbsp;&nbsp;Contact:
+          <a href="https://twitter.com/b_e_n">@b_e_n</a> &nbsp;&nbsp;&nbsp;|
+          &nbsp;&nbsp;&nbsp;Not an epidemiologist!<br />Dataset compiled from PA
+          Dept. of Health Press Releases. Projection based on three day rolling
+          average of growth rate&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Dataset
+          last updated: 18:00 3/14/2020</span
+        >
+      </div>
+    </footer>
+    <script type="text/javascript" src="countiesGeo.js"></script>
+    <script type="text/javascript" src="incidents.js"></script>
+    <script type="text/javascript" src="map.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+      integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
