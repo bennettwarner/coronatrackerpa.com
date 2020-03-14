@@ -139,6 +139,3 @@ legend.onAdd = function(map) {
 
 legend.addTo(map);
 map.addControl(new L.Control.Fullscreen());
-map.attributionControl.addAttribution(
-  ' | Data Last Updated 2:00 3/14/2020 | Created by <a href="https://bennettwarner.com">Bennett Warner</a>'
-);
