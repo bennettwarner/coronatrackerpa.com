@@ -31,7 +31,7 @@ info.update = function(props) {
         " County</b><br />" +
         incidents[props.NAME] +
         " Confirmed Cases"
-      : "Hover over a county");
+      : "Click on a county");
 };
 
 info.addTo(map);
