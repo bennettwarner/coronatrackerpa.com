@@ -30,7 +30,7 @@ info.update = function(props) {
         props.NAME +
         " County</b><br />" +
         incidents[props.NAME] +
-        " Confirmed Cases*"
+        " Confirmed Cases"
       : "Click on a county");
 };
 
