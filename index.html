@@ -61,6 +61,8 @@
   </head>
 
   <body class="d-flex flex-column h-100">
+    <script type="text/javascript" src="countiesGeo.js"></script>
+    <script type="text/javascript" src="incidents.js"></script>
     <div class="container">
       <h1 class="mt-5" align="center">Pennsylvania Coronavirus Tracker</h1>
       <!-- <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p> -->
@@ -70,6 +72,50 @@
       <div><canvas id="myChart"></canvas></div>
     </div>
     <script>
+      var total = 0;
+      for (var x in incidents) {
+        total = total + parseInt(incidents[x]);
+      }
+      var series = [
+        0,
+        2,
+        4,
+        6,
+        10,
+        12,
+        16,
+        22,
+        41,
+        47,
+        63,
+        71,
+        96,
+        133,
+        185,
+        268,
+        371,
+        479
+      ];
+      series.push(total);
+      var series2 = [];
+      for (var i = 1; i < series.length; i += 1) {
+        series2.push(null);
+      }
+      var growth_rate =
+        ((series[series.length - 3] - series[series.length - 4]) /
+          series[series.length - 4] +
+          (series[series.length - 2] - series[series.length - 3]) /
+            series[series.length - 3] +
+          (series[series.length - 1] - series[series.length - 2]) /
+            series[series.length - 2]) /
+          3 +
+        1;
+      series2.push(total);
+      series2.push(Math.round(total * growth_rate));
+      series2.push(Math.round(total * Math.pow(growth_rate, 2)));
+      series2.push(Math.round(total * Math.pow(growth_rate, 3)));
+      series2.push(Math.round(total * Math.pow(growth_rate, 4)));
+
       var ctx = document.getElementById("myChart");
       var chart = new Chart(ctx, {
         type: "line",
@@ -102,58 +148,14 @@
           datasets: [
             {
               label: "COVID-19 Cases",
-              data: [
-                0,
-                2,
-                4,
-                6,
-                10,
-                12,
-                16,
-                22,
-                41,
-                47,
-                63,
-                71,
-                96,
-                133,
-                185,
-                268,
-                371,
-                479,
-                644
-              ],
+              data: series,
               fill: false,
               borderColor: "rgb(255, 99, 132)",
               lineTension: 0.1
             },
             {
               label: "Projection Based on Latest Growth Rate",
-              data: [
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                ,
-                644,
-                863,
-                1156,
-                1549,
-                2076
-              ],
+              data: series2,
               fill: false,
               hidden: true,
               borderColor: "rgb(54, 162, 235)",
@@ -194,12 +196,12 @@
           >
           Press Releases. Projection based on three day rolling average of
           growth rate.<br />
-          Dataset last updated: 14:00 3/21/2020</span
+          Although a simple model, backtests prove these projections to
+          generally be accurate with a healthy margin of error.<br />
+          Dataset last updated: 00:00 3/24/2020</span
         >
       </div>
     </footer>
-    <script type="text/javascript" src="countiesGeo.js"></script>
-    <script type="text/javascript" src="incidents.js"></script>
     <script type="text/javascript" src="map.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
